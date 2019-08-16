@@ -4,23 +4,22 @@ import { Pipeline } from "../src/Pipeline";
 import { Aggregator } from "../src/Aggregator";
 import { TimeSeriesStorage } from "../src/Storage";
 import { AlertEngine } from "../src/AlertEngine";
-import { DashboardQuery } from "../src/Dashboard";
 
 describe("EventCollector", () => {
   it("ingests and returns a normalized event", () => {
     const collector = new EventCollector({ sourceTag: "test" });
     const event = collector.ingest({ name: "signup", userId: "u1" });
     expect(event).not.toBeNull();
-    expect(event!.name).toBe("signup");
-    expect(event!.source).toBe("test");
-    expect(event!.id).toBeDefined();
-    expect(event!.timestamp).toBeDefined();
+    expect(event\!.name).toBe("signup");
+    expect(event\!.source).toBe("test");
+    expect(event\!.id).toBeDefined();
+    expect(event\!.timestamp).toBeDefined();
   });
 
   it("deduplicates events by ID", () => {
     const collector = new EventCollector();
     const e1 = collector.ingest({ name: "click", userId: "u1" });
-    const e2 = collector.ingest({ name: "click", userId: "u1", id: e1!.id });
+    const e2 = collector.ingest({ name: "click", userId: "u1", id: e1\!.id });
     expect(e1).not.toBeNull();
     expect(e2).toBeNull();
   });
@@ -37,7 +36,7 @@ describe("Pipeline", () => {
     const pipeline = new Pipeline("test");
     const results: any[] = [];
     pipeline
-      .filter("has-user", (e) => !!e.userId)
+      .filter("has-user", (e) => \!\!e.userId)
       .addSink((e) => results.push(e));
 
     const collector = new EventCollector();
@@ -68,18 +67,17 @@ describe("Pipeline", () => {
 
 describe("Aggregator", () => {
   it("aggregates metrics within a window", () => {
-    let flushed: any = null;
-    const agg = new Aggregator("1m", (result) => { flushed = result; });
+    const agg = new Aggregator("1m");
     const now = Date.now();
     agg.add({ name: "latency", value: 100, timestamp: now, dimensions: {} });
     agg.add({ name: "latency", value: 200, timestamp: now + 1000, dimensions: {} });
 
-    agg.flush();
-    expect(flushed).not.toBeNull();
-    expect(flushed.count).toBe(2);
-    expect(flushed.avg).toBe(150);
-    expect(flushed.min).toBe(100);
-    expect(flushed.max).toBe(200);
+    const results = agg.forceFlushAll();
+    expect(results.length).toBe(1);
+    expect(results[0].count).toBe(2);
+    expect(results[0].avg).toBe(150);
+    expect(results[0].min).toBe(100);
+    expect(results[0].max).toBe(200);
   });
 });
 
@@ -131,6 +129,6 @@ describe("AlertEngine", () => {
     });
 
     expect(alert).not.toBeNull();
-    expect(alert!.ruleName).toBe("High CPU");
+    expect(alert\!.ruleName).toBe("High CPU");
   });
 });
