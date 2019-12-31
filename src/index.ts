@@ -5,6 +5,8 @@ export { TimeSeriesStorage } from './Storage';
 export { AlertEngine } from './AlertEngine';
 export { DashboardQuery } from './Dashboard';
 export { bucketTimestamp, movingAverage, interpolateGaps, calculateRate } from './utils/timeseries';
+export { percentile, histogram, stddev, rate } from './utils/metrics';
+export { ReservoirSampler, RateLimiter, sampleArray } from './utils/sampling';
 
 export type {
   Event,
@@ -14,6 +16,7 @@ export type {
   TimeWindowSize,
   PipelineStage,
   PipelineStageType,
+  PipelineConfig,
   Filter,
   Aggregation,
   Dashboard,

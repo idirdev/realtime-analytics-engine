@@ -46,7 +46,7 @@ export interface PipelineStage {
   handler: (event: Event) => Event | null;
 }
 
-export interface Pipeline {
+export interface PipelineConfig {
   name: string;
   stages: PipelineStage[];
   errorHandler?: (error: Error, event: Event) => void;

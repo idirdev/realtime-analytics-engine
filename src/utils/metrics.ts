@@ -28,17 +28,6 @@ export function histogram(values: number[], bucketCount: number): { min: number;
   return buckets;
 }
 
-export function movingAverage(values: number[], windowSize: number): number[] {
-  if (windowSize <= 0 || values.length === 0) return [];
-  const result: number[] = [];
-  for (let i = 0; i < values.length; i++) {
-    const start = Math.max(0, i - windowSize + 1);
-    const window = values.slice(start, i + 1);
-    result.push(window.reduce((a, b) => a + b, 0) / window.length);
-  }
-  return result;
-}
-
 export function stddev(values: number[]): number {
   if (values.length === 0) return 0;
   const mean = values.reduce((a, b) => a + b, 0) / values.length;
