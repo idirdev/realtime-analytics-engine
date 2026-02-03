@@ -136,3 +136,7 @@ examples/
 ## License
 
 MIT
+
+## Storage Backends
+
+Supports in-memory, Redis, and PostgreSQL as storage backends.
