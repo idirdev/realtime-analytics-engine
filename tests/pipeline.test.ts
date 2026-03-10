@@ -10,16 +10,16 @@ describe("EventCollector", () => {
     const collector = new EventCollector({ sourceTag: "test" });
     const event = collector.ingest({ name: "signup", userId: "u1" });
     expect(event).not.toBeNull();
-    expect(event\!.name).toBe("signup");
-    expect(event\!.source).toBe("test");
-    expect(event\!.id).toBeDefined();
-    expect(event\!.timestamp).toBeDefined();
+    expect(event!.name).toBe("signup");
+    expect(event!.source).toBe("test");
+    expect(event!.id).toBeDefined();
+    expect(event!.timestamp).toBeDefined();
   });
 
   it("deduplicates events by ID", () => {
     const collector = new EventCollector();
     const e1 = collector.ingest({ name: "click", userId: "u1" });
-    const e2 = collector.ingest({ name: "click", userId: "u1", id: e1\!.id });
+    const e2 = collector.ingest({ name: "click", userId: "u1", id: e1!.id });
     expect(e1).not.toBeNull();
     expect(e2).toBeNull();
   });
@@ -36,7 +36,7 @@ describe("Pipeline", () => {
     const pipeline = new Pipeline("test");
     const results: any[] = [];
     pipeline
-      .filter("has-user", (e) => \!\!e.userId)
+      .filter("has-user", (e) => !!e.userId)
       .addSink((e) => results.push(e));
 
     const collector = new EventCollector();
@@ -129,6 +129,6 @@ describe("AlertEngine", () => {
     });
 
     expect(alert).not.toBeNull();
-    expect(alert\!.ruleName).toBe("High CPU");
+    expect(alert!.ruleName).toBe("High CPU");
   });
 });
