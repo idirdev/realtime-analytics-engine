@@ -140,3 +140,24 @@ MIT
 ## Storage Backends
 
 Supports in-memory, Redis, and PostgreSQL as storage backends.
+
+---
+
+## 🇫🇷 Documentation en français
+
+### Description
+realtime-analytics-engine est un pipeline de données analytiques en temps réel avec agrégation par fenêtres temporelles, alertes et requêtes de tableau de bord. Construit en TypeScript sans dépendances externes au runtime (hormis `uuid`), il offre une architecture légère et performante. Idéal pour implémenter des systèmes d'analytics custom dans vos applications Node.js.
+
+### Installation
+```bash
+npm install
+npm run build
+```
+
+### Utilisation
+```typescript
+import { AnalyticsEngine } from './src';
+const engine = new AnalyticsEngine();
+engine.ingest({ event: 'page_view', userId: '123' });
+```
+Consultez la documentation en anglais ci-dessus pour les exemples d'agrégation, d'alertes et de requêtes dashboard.
